@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalkulator Interpolasi Kuota Internet</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 480px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-weight: 500;
+      margin-top: 8px;
+      display: block;
+      color: #444;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      outline: none;
+      margin-top: 4px;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #6a98f0;
+      box-shadow: 0 0 8px rgba(106,152,240,0.4);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      background: #6a98f0;
+      color: white;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #4c7be0;
+    }
+
+    #hasil {
+      margin-top: 18px;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      color: #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>📶 Interpolasi Linear<br>Perkiraan Sisa Kuota Internet</h2>
+
+    <label>Hari 1 (x1)</label>
+    <input type="number" id="x1" placeholder="contoh: 1" />
+
+    <label>Kuota pada Hari 1 (y1) — MB</label>
+    <input type="number" id="y1" placeholder="contoh: 1000" />
+
+    <label>Hari 2 (x2)</label>
+    <input type="number" id="x2" placeholder="contoh: 3" />
+
+    <label>Kuota pada Hari 2 (y2) — MB</label>
+    <input type="number" id="y2" placeholder="contoh: 1600" />
+
+    <label>Hari yang Dicari (x)</label>
+    <input type="number" id="x" placeholder="contoh: 2" />
+
+    <button onclick="hitung()">🔍 Hitung Perkiraan Kuota</button>
+
+    <p id="hasil"></p>
+  </div>
+
+  <script>
+    function hitung() {
+      const x1 = parseFloat(document.getElementById('x1').value);
+      const y1 = parseFloat(document.getElementById('y1').value);
+      const x2 = parseFloat(document.getElementById('x2').value);
+      const y2 = parseFloat(document.getElementById('y2').value);
+      const x = parseFloat(document.getElementById('x').value);
+
+      if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2) || isNaN(x)) {
+        document.getElementById('hasil').innerText = "❗ Semua kolom harus diisi!";
+        return;
+      }
+
+      const y = y1 + ((x - x1) / (x2 - x1)) * (y2 - y1);
+      document.getElementById('hasil').innerText = "📌 Perkiraan kuota pada hari ke-" + x + " adalah: " + y.toFixed(2) + " MB";
+    }
+  </script>
+
+</body>
+</html>
